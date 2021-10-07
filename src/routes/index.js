@@ -4,7 +4,7 @@ const router = express.Router()
 const { getUsers, getUser, updateUser, deleteUser } = require('../controllers/users')
 const { register, login } = require('../controllers/auth')
 const { addBook, getBooks, getBook, updateBook, deleteBook } = require('../controllers/book')
-const { addTransaction, getTransactions, getTransaction, updateTransaction } = require('../controllers/transaction')
+const { addTransaction, getTransactions, getTransaction, updateTaransaction } = require('../controllers/transaction')
 
 const { auth } = require('../middleware/auth')
 const { uploadFile } = require('../middleware/uploadFile')
@@ -25,9 +25,9 @@ router.patch('/book/:id', uploadFile('bookFile'), updateBook)
 router.delete('/book/:id', deleteBook)
 
 // Transaction
-router.post('/transaction', auth, addTransaction)
+router.post('/transaction', auth, uploadFile('transferProof'), addTransaction)
 router.get('/tansactions', getTransactions)
 router.get('/tansaction/:id', getTransaction)
-router.patch('/tansaction/:id', updateTransaction)
+router.patch('/tansaction/:id', auth, updateTaransaction)
 
 module.exports = router
