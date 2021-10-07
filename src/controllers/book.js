@@ -1,8 +1,18 @@
+const { json } = require('body-parser')
 const { books } = require('../../models')
 
 exports.getBooks = async (req, res) => {
     try {
-        const book = await books.findAll()
+        let book = await books.findAll()
+
+        book = JSON.parse(JSON.stringify(book))
+        book = book.map(item => {
+            return {
+                ...item,
+                bookFile: process.env.PATH_FILE + item.bookFile
+            }
+        })
+
         res.status(200).send({
             status: 'success',
             data: {

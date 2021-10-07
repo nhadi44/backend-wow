@@ -14,6 +14,7 @@ const router = require('./src/routes/');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use('/uploads', express.static('uploads'))
 
 app.post('/test', uploadFile('image'), (req, res) => {
     const data = req.body
